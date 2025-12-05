@@ -50,8 +50,8 @@ const PhonePreview = ({
         }}
       >
         <Image
-          alt="cropped phone case design"
-          height={renderedDimensions.height / (2001 / 957)}
+          alt="Cropped phone preview"
+          height={renderedDimensions.height / (2001 / 637)}
           width={renderedDimensions.width / (3000 / 637)}
           className={cn(
             "phone-skew relative z-20 rounded-t-[15px] rounded-b-[10px] md:rounded-t-[30px] md:rounded-b-[20px]",
@@ -64,7 +64,7 @@ const PhonePreview = ({
       <div className="relative h-full w-full z-40">
         <Image
           alt="phone"
-          src="/clearphone.png"
+          src="/images/clearphone.png"
           className="pointer-events-none h-full w-full antialiased rounded-md"
           fill
         />

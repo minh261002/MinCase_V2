@@ -69,8 +69,8 @@ const ThankYou = () => {
               You made a great choice!
             </h4>
             <p className="mt-2 text-sm text-zinc-600">
-              We at CaseCobra believe that a phone case doesn&apos;t only need
-              to look good, but also last you for the years to come. We offer a
+              We at MinCase believe that a phone case doesn&apos;t only need to
+              look good, but also last you for the years to come. We offer a
               5-year print guarantee: If you case isn&apos;t of the highest
               quality, we&apos;ll replace it for free.
             </p>
@@ -121,7 +121,7 @@ const ThankYou = () => {
             <div>
               <p className="font-medium text-zinc-900">Shipping Method</p>
               <p className="mt-2 text-zinc-700">
-                DHL, takes up to 3 working days
+                SPX, takes up to 3 working days
               </p>
             </div>
           </div>
