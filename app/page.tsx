@@ -189,7 +189,7 @@ const Home = () => {
                   alt="user image"
                 />
                 <div className="flex flex-col">
-                  <p className="font-semibold">Thanh Huyen</p>
+                  <p className="font-semibold">John</p>
                   <div className="flex gap-1.5 items-center text-zinc-600">
                     <Check className="w-4 h-4 stroke-[3px] text-blue-600" />
                     <div className="text-sm">Verified Purchase</div>
@@ -230,7 +230,7 @@ const Home = () => {
                   alt="user image"
                 />
                 <div className="flex flex-col">
-                  <p className="font-semibold">Khanh Van</p>
+                  <p className="font-semibold">Tom</p>
                   <div className="flex gap-1.5 items-center text-zinc-600">
                     <Check className="w-4 h-4 stroke-[3px] text-blue-600" />
                     <div className="text-sm">Verified Purchase</div>
