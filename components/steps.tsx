@@ -7,17 +7,17 @@ const STEPS = [
   {
     name: "Step 1: Add image",
     description: "Choose an image for your case",
-    url: "/upload",
+    url: "/configure/upload",
   },
   {
     name: "Step 2: Customize design",
     description: "Make the case yours",
-    url: "/design",
+    url: "/configure/design",
   },
   {
     name: "Step 3: Summary",
     description: "Review your final design",
-    url: "/preview",
+    url: "/configure/preview",
   },
 ];
 
@@ -38,7 +38,7 @@ const Steps = () => {
             <div>
               <span
                 className={cn(
-                  "absolute left-0 top-0 h-full w-1 bg-blue-400 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full",
+                  "absolute left-0 top-0 h-full w-1 bg-blue-200 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full",
                   {
                     "bg-blue-700": isCurrent,
                     "bg-primary": isCompleted,

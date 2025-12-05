@@ -15,32 +15,48 @@ export const ourFileRouter = {
       return { input };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      const { configId } = metadata.input;
-      const res = await fetch(file.url);
-      const buffer = await res.arrayBuffer();
+      try {
+        const { configId } = metadata.input;
 
-      const imgMetaData = await sharp(buffer).metadata();
-      const { width, height } = imgMetaData;
+        // Use ufsUrl instead of deprecated url
+        const imageUrl = file.ufsUrl;
+        const res = await fetch(imageUrl);
 
-      if (!configId) {
-        const configuration = await db.configuration.create({
-          data: {
-            imageUrl: file.url,
-            height: height || 500,
-            width: width || 500,
-          },
+        if (!res.ok) {
+          throw new Error(`Failed to fetch image: ${res.statusText}`);
+        }
+
+        const buffer = await res.arrayBuffer();
+        const imgMetaData = await sharp(buffer).metadata();
+        const { width, height } = imgMetaData;
+
+        if (!configId) {
+          const configuration = await db.configuration.create({
+            data: {
+              imageUrl,
+              height: height || 500,
+              width: width || 500,
+            },
+          });
+
+          return { configId: configuration.id };
+        } else {
+          const updatedConfiguration = await db.configuration.update({
+            where: { id: configId },
+            data: {
+              croppedImageUrl: imageUrl,
+            },
+          });
+
+          return { configId: updatedConfiguration.id };
+        }
+      } catch (error) {
+        console.error("Error in onUploadComplete:", error);
+        throw new UploadThingError({
+          code: "INTERNAL_SERVER_ERROR",
+          message:
+            error instanceof Error ? error.message : "Failed to process upload",
         });
-
-        return { configId: configuration.id };
-      } else {
-        const updatedConfiguration = await db.configuration.update({
-          where: { id: configId },
-          data: {
-            croppedImageUrl: file.url,
-          },
-        });
-
-        return { configId: updatedConfiguration.id };
       }
     }),
 } satisfies FileRouter;

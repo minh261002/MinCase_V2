@@ -1,19 +1,32 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 
-declare global {
-  var cachedPrisma: PrismaClient;
+const connectionString = process.env.DATABASE_URL;
+
+console.log("[db.ts] DATABASE_URL =", connectionString);
+
+if (!connectionString) {
+  throw new Error("DATABASE_URL is not set in runtime");
 }
 
-let prisma: PrismaClient;
+const pool = new Pool({
+  connectionString,
+  // ssl: { rejectUnauthorized: false },
+});
 
-if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient();
-} else {
-  if (!global.cachedPrisma) {
-    global.cachedPrisma = new PrismaClient();
-  }
+const adapter = new PrismaPg(pool);
 
-  prisma = global.cachedPrisma;
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClient;
+};
+
+export const db =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    adapter,
+  });
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = db;
 }
-
-export const db = prisma;
